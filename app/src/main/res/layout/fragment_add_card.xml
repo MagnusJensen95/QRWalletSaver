@@ -2,12 +2,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="qrapp.fragments.AddCardFrag">
+    tools:context="qrapp.fragments.AddCardFrag"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/addfrag" />
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hvor skal korte gælde til?"
+            android:id="@+id/addCardMedlemskabText"
+            android:layout_centerHorizontal="true"
+
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:inputType="textCapCharacters|textPersonName"
+            android:id="@+id/medlemskabAddEdit"
+            android:ems="10"
+            android:layout_below="@+id/addCardMedlemskabText"
+            />
+
+        <TextView
+            android:text="Hvordan vil du indtaste oplysningerne?"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/addMethodSpinner"
+            android:layout_below="@+id/medlemskabAddEdit"
+           />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/optionsSpinner"
+            android:layout_below="@+id/addMethodSpinner"
+            android:entries="@array/options_addCard"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:text="Indtast dine oplysninger her"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/indtastText"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/optionsSpinner"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+
+            android:layout_below="@id/indtastText"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:id="@+id/indtastEdit"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="indsæt"
+            android:layout_below="@+id/indtastEdit"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/addButton"
+            android:layout_marginTop="100dp"
+            />
+
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>

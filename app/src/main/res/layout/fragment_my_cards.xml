@@ -1,13 +1,44 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="qrapp.fragments.MyCardsFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="MycardsFrag" />
+        >
+
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardsSpinner"
+            android:layout_centerHorizontal="true"
+            >
+
+
+        </Spinner>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/QRImage"
+            android:layout_below="@+id/cardsSpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/barcodeImage"
+            android:layout_below="@+id/QRImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            />
+    </RelativeLayout>
+
 
 </FrameLayout>
