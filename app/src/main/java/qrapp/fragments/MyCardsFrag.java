@@ -2,6 +2,7 @@ package qrapp.fragments;
 
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.ZoomControls;
 
 import com.google.zxing.BarcodeFormat;
@@ -36,7 +38,7 @@ import qrapp.activities.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelectedListener {
+public class MyCardsFrag extends MasterFrag {
 
 
     private DBHelper helper;
@@ -48,9 +50,13 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
     private ImageView qrImage;
     private  ImageView barcodeImage;
     private boolean firstSelection = false;
+    private TextView numberText;
+    private Bundle bundle;
+    private String name;
+    private String code;
 
 
-    public MyCardsFrag() {
+    public MyCardsFrag () {
 
     }
 
@@ -66,7 +72,25 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         qrImage = (ImageView) view.findViewById(R.id.QRImage);
         barcodeImage = (ImageView) view.findViewById(R.id.barcodeImage);
+        numberText = (TextView)view.findViewById(R.id.numberText);
 
+        bundle = this.getArguments();
+        if (bundle != null){
+
+            name = bundle.getString("passedCardName");
+            code = bundle.getString("passedCode");
+
+        }
+        else {
+            name = "Ingen Data";
+            code = "Ingen Data";
+
+        }
+
+        setImages();
+
+
+        /* This is the previous version
         cards = helper.getData();
 
         if(!firstSelection) {
@@ -75,7 +99,7 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         for (int i = 0; i < cards.size(); i++) {
 
-            cardNames.add(cards.get(i).getMedlemskab());
+            cardNames.add(cards.get(i).getKortData());
 
         }
 
@@ -84,7 +108,7 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
                 R.layout.spinner, cardNames);
         cardSpinner = (Spinner) view.findViewById(R.id.cardsSpinner);
         cardSpinner.setAdapter(adapter);
-        cardSpinner.setOnItemSelectedListener(this);
+        */
 
 
 
@@ -103,13 +127,13 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-     if(!cardNames.get(position).equals("Pick a card")) {
+    public void setImages() {
+
+
          writer = new MultiFormatWriter();
          try {
-             BitMatrix bitMatrixQR = writer.encode(cardNames.get(position), BarcodeFormat.QR_CODE, 500, 500);
+             BitMatrix bitMatrixQR = writer.encode(code, BarcodeFormat.QR_CODE, 500, 500);
              int width = bitMatrixQR.getWidth();
              int height = bitMatrixQR.getHeight();
              Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -126,7 +150,7 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
          try {
 
-             BitMatrix bitMatrixBar = writer.encode(cardNames.get(position), BarcodeFormat.CODE_128, 1000, 250);
+             BitMatrix bitMatrixBar = writer.encode(code, BarcodeFormat.CODE_128, 1000, 250);
              Bitmap bar = Bitmap.createBitmap(1000, 250, Bitmap.Config.ARGB_8888);
              int width = bitMatrixBar.getWidth();
              int height = bitMatrixBar.getHeight();
@@ -139,18 +163,15 @@ public class MyCardsFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
 
              barcodeImage.setImageBitmap(bar);
+             numberText.setText(code);
+
 
 
          } catch (Exception e) {
          }
-         if(cardNames.get(0).equals("Pick a card")) {
-             cardNames.remove(0);
-             firstSelection = true;
-         }
-     }
-    }
-        @Override
-        public void onNothingSelected (AdapterView < ? > parent){
 
-        }
+
+
+     }
+
     }

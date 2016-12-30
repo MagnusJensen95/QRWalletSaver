@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QRWalletSaver</string>
+    <string name="app_name">Re-Member</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -15,6 +15,19 @@
         <item>Scan QR-Kode</item>
         <item>Scan Stregkode</item>
         <item>Indtast oplysninger manuelt</item>
+
+    </string-array>
+
+
+    <string-array name="memberships">
+
+        <item>Matas</item>
+        <item>CBS</item>
+        <item>DTU</item>
+        <item>Coop</item>
+        <item>KU</item>
+        <item>Meny</item>
+        <item>Ikea</item>
 
     </string-array>
 </resources>

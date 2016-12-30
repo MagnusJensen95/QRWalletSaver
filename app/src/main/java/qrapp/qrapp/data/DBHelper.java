@@ -84,7 +84,7 @@ public class DBHelper extends SQLiteOpenHelper  {
     public boolean addCardData(CardData card){
         boolean success = false;
         SQLiteDatabase db = this.getWritableDatabase();
-        onUpgrade(db, db.getVersion(), db.getVersion()+1);
+
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TITLE, card.getMedlemskab());

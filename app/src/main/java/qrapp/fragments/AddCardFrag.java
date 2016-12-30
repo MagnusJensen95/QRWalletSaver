@@ -51,6 +51,8 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
     private boolean qr, bar, type;
     private String entryData;
     private ZxingScanner scanner;
+    private Spinner memberships;
+    ArrayList<String> stringToAdd;
 
 
 
@@ -69,11 +71,31 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
         enterText.setVisibility(View.INVISIBLE);
         enterEdit = (EditText) view.findViewById(R.id.indtastEdit);
         enterEdit.setVisibility(View.INVISIBLE);
+
+        stringToAdd = new ArrayList<String>();
+
+        ArrayList<CardData> dbData = helper.getData();
+        String[] knownMemberships = view.getResources().getStringArray(R.array.memberships);
+
+        for(int i = 0; i < knownMemberships.length; i++){
+
+            if(!dbData.contains(knownMemberships[i]) ){
+
+                stringToAdd.add(knownMemberships[i]);
+            }
+
+        }
+
+
+
+
+        memberships = (Spinner)view.findViewById(R.id.membershipSpinner);
+        memberships.setAdapter(new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner, stringToAdd));
+
+
         spinner = (Spinner) view.findViewById(R.id.optionsSpinner);
         spinner.setOnItemSelectedListener(this);
         scanner = new ZxingScanner(getActivity());
-
-
         addButton = (Button) view.findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
 
@@ -91,26 +113,17 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
                 if (qr){
                     scanner.onScan();
-                    try {
-                        getFragmentManager().beginTransaction().replace(R.id.container_main, new MainPageFrag()).commit();
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
+
                 }
                 else if(bar){
                     scanner.onScan();
-                    try {
-                        getFragmentManager().beginTransaction().replace(R.id.container_main, new MainPageFrag()).commit();
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
 
                 }
                 else if (type){
 
                     addEntry(enterEdit.getText().toString());
                     try {
-                        getFragmentManager().beginTransaction().replace(R.id.container_main, new MainPageFrag()).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.container_main, new CardListFrag()).commit();
                     } catch (Throwable throwable) {
                         throwable.printStackTrace();
                     }

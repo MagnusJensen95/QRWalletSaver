@@ -27,6 +27,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import qrapp.fragments.AboutFrag;
 import qrapp.fragments.AddCardFrag;
+import qrapp.fragments.CardListFrag;
 import qrapp.fragments.HelpFrag;
 import qrapp.fragments.MainPageFrag;
 import qrapp.fragments.MasterFrag;
@@ -41,6 +42,7 @@ public class DrawerMain extends AppCompatActivity
     public static final int NUM_PAGES = 2;
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class DrawerMain extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        manager = getFragmentManager();
+        manager.beginTransaction().replace(R.id.container_main, new CardListFrag()).commit();
     }
 
     @Override
@@ -87,9 +91,11 @@ public class DrawerMain extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             return true;
         }
+        */
 
         return super.onOptionsItemSelected(item);
     }
@@ -103,7 +109,7 @@ public class DrawerMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.drawer_my_cards) {
-           MyCardsFrag frag =  new MyCardsFrag();
+           CardListFrag frag =  new CardListFrag();
             transaction.replace(R.id.container_main, frag).commit();
 
         } else if (id == R.id.drawer_add_cards) {
@@ -117,7 +123,7 @@ public class DrawerMain extends AppCompatActivity
 
         } else if (id == R.id.drawer_help) {
 
-            transaction.replace(R.id.container_main, new MainPageFrag()).commit();
+            transaction.replace(R.id.container_main, new HelpFrag()).commit();
 
         }
 

@@ -11,21 +11,11 @@
         >
 
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cardsSpinner"
-            android:layout_centerHorizontal="true"
-            >
-
-
-        </Spinner>
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/QRImage"
-            android:layout_below="@+id/cardsSpinner"
+
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             />
@@ -37,6 +27,15 @@
             android:layout_below="@+id/QRImage"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
+            />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/numberText"
+            android:layout_below="@+id/barcodeImage"
             />
     </RelativeLayout>
 

@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hvor skal korte gælde til?"
+            android:text="Vælg et kort fra listen, søg evt. efter kort"
             android:id="@+id/addCardMedlemskabText"
             android:layout_centerHorizontal="true"
 
@@ -31,13 +31,26 @@
             android:layout_below="@+id/addCardMedlemskabText"
             />
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/membershipSpinner"
+            android:layout_below="@+id/medlemskabAddEdit"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"/>
+            <!--
+            android:entries="@array/memberships"
+            -->
+
+
         <TextView
             android:text="Hvordan vil du indtaste oplysningerne?"
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:id="@+id/addMethodSpinner"
-            android:layout_below="@+id/medlemskabAddEdit"
+            android:layout_below="@+id/membershipSpinner"
            />
 
         <Spinner

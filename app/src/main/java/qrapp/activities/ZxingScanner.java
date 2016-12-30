@@ -38,6 +38,12 @@ public class ZxingScanner {
 
     }
 
+    public ZxingScanner() {
+
+
+
+    }
+
     public void onScan(){
 
         integrator.setPrompt("Scan din kode.");
