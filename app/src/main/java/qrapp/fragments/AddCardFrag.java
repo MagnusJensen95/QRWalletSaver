@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -92,7 +94,7 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         for(int i = 0; i < knownMemberships.length; i++){
 
-            if(!dbData.contains(knownMemberships[i]) ){
+            if(!cardsInDatabase.contains(knownMemberships[i]) ){
 
                 stringToAdd.add(knownMemberships[i]);
             }
@@ -116,22 +118,40 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         spinner = (Spinner) view.findViewById(R.id.optionsSpinner);
         spinner.setOnItemSelectedListener(this);
-        medlemskab.setOnKeyListener(new View.OnKeyListener() {
+
+        medlemskab.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 stringToAdd.clear();
                 for(int i = 0; i < knownMemberships.length; i++){
                     if(knownMemberships[i].toUpperCase().startsWith(medlemskab.getText().toString().toUpperCase())){
 
-                            if(!cardsInDatabase.contains(knownMemberships[i]) ){
+                        if(!cardsInDatabase.contains(knownMemberships[i]) ){
 
-                                stringToAdd.add(knownMemberships[i]);
-                            }
-
+                            stringToAdd.add(knownMemberships[i]);
                         }
+
                     }
+                }
                 stringToAdd.add("Brugerdefineret Medlemskab");
                 membershipAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        medlemskab.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
                 return false;
             }
         });

@@ -8,6 +8,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="AboutFrag" />
+        android:text="Dette er en app udviklet af Magnus Jensen i samarbejde med Marcus Bjørn Larsen"
+        android:textAlignment="center"
+        android:layout_marginTop="50dp"
+        />
 
 </FrameLayout>
