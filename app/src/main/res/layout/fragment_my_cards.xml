@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         >
 
 
@@ -15,9 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/QRImage"
-
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+
             />
 
         <ImageView
@@ -26,14 +26,15 @@
             android:id="@+id/barcodeImage"
             android:layout_below="@+id/QRImage"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+
             />
 
         <TextView
-            android:text=""
+
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
+
             android:id="@+id/numberText"
             android:layout_below="@+id/barcodeImage"
             />

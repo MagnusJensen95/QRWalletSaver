@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,8 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
     private ZxingScanner scanner;
     private Spinner memberships;
     ArrayList<String> stringToAdd;
+    ArrayList<String> cardsInDatabase;
+    ArrayAdapter<String> membershipAdapter;
 
 
 
@@ -67,6 +70,7 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         introtext = (TextView) view.findViewById(R.id.addCardMedlemskabText);
         medlemskab = (EditText) view.findViewById(R.id.medlemskabAddEdit);
+
         enterText = (TextView)view.findViewById(R.id.indtastText);
         enterText.setVisibility(View.INVISIBLE);
         enterEdit = (EditText) view.findViewById(R.id.indtastEdit);
@@ -74,8 +78,17 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         stringToAdd = new ArrayList<String>();
 
-        ArrayList<CardData> dbData = helper.getData();
-        String[] knownMemberships = view.getResources().getStringArray(R.array.memberships);
+        final ArrayList<CardData> dbData = helper.getData();
+        cardsInDatabase = new ArrayList<String>();
+        for(int i = 0; i < dbData.size(); i++){
+
+            cardsInDatabase.add(dbData.get(i).getMedlemskab());
+
+
+        }
+
+
+        final String[] knownMemberships = view.getResources().getStringArray(R.array.memberships);
 
         for(int i = 0; i < knownMemberships.length; i++){
 
@@ -86,15 +99,42 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
         }
 
-
-
-
         memberships = (Spinner)view.findViewById(R.id.membershipSpinner);
-        memberships.setAdapter(new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner, stringToAdd));
+        membershipAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner, stringToAdd);
+        memberships.setAdapter(membershipAdapter);
+        memberships.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+            });
 
         spinner = (Spinner) view.findViewById(R.id.optionsSpinner);
         spinner.setOnItemSelectedListener(this);
+        medlemskab.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                stringToAdd.clear();
+                for(int i = 0; i < knownMemberships.length; i++){
+                    if(knownMemberships[i].toUpperCase().startsWith(medlemskab.getText().toString().toUpperCase())){
+
+                            if(!cardsInDatabase.contains(knownMemberships[i]) ){
+
+                                stringToAdd.add(knownMemberships[i]);
+                            }
+
+                        }
+                    }
+                stringToAdd.add("Brugerdefineret Medlemskab");
+                membershipAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
         scanner = new ZxingScanner(getActivity());
         addButton = (Button) view.findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
@@ -136,15 +176,24 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
 
   @Override
   public void addEntry(String data){
+      String membership;
+      if(memberships.getSelectedItem().equals("Brugerdefineret Medlemskab")){
+          membership = medlemskab.getText().toString();
+      }
+      else{
+
+          membership = memberships.getSelectedItem().toString();
+
+      }
       entryData = data;
-      if(helper.addCardData(new CardData(medlemskab.getText().toString(), entryData))){
+      if(helper.addCardData(new CardData(membership, entryData))){
           Toast.makeText(getActivity().getApplicationContext(),
-                  "Du Har nu gemt " + medlemskab.getText().toString() + " i dine kort",
+                  "Du Har nu gemt " + membership + " i dine kort",
                   Toast.LENGTH_SHORT).show();
       }
       else {
           Toast.makeText(getActivity().getApplicationContext(),
-                  "Du har allerede gemt " + medlemskab.getText().toString() + " i dine kort",
+                  "Du har allerede gemt " + membership + " i dine kort",
                   Toast.LENGTH_SHORT).show();
       }
 
