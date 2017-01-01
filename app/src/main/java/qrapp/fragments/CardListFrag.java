@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class CardListFrag extends Fragment {
     private ListView list;
     List<CardData> cardList;
     String[] cardNames;
-    int[] cardIconAddress;
+    TypedArray cardIconAddress;
     ArrayList<String> cardNames1;
     ArrayList<Integer> cardImages1;
 
@@ -58,7 +60,8 @@ public class CardListFrag extends Fragment {
         cardNames = getActivity().getResources().getStringArray(R.array.memberships);
         cardNames1 = new ArrayList<String>();
         cardImages1 = new ArrayList<Integer>();
-        cardIconAddress = getActivity().getResources().getIntArray(R.array.logo_images);
+        cardIconAddress = getActivity().getResources().obtainTypedArray(R.array.logo_images);
+
 
         for (int i = 0; i < cardList.size(); i++) {
 
@@ -67,17 +70,17 @@ public class CardListFrag extends Fragment {
             cardNames1.add(nameInArray);
             for(int j = 0; j < cardNames.length; j++){
 
-                if (nameInArray.equals(cardNames[j])){
+                if (nameInArray.equalsIgnoreCase(cardNames[j])){
 
                     imgPos = j;
-                    cardImages1.add(cardIconAddress[imgPos]);
+                    cardImages1.add(cardIconAddress.getResourceId(j, 0));
                 }
 
             }
 
 
         }
-        cardImages1.add(R.drawable.br);
+
 
 
         adapter = new CustomListAdapter(this.getActivity(),
@@ -97,6 +100,7 @@ public class CardListFrag extends Fragment {
 
                 bundle.putString("passedCardName", passName);
                 bundle.putString("passedCode", passCode);
+                bundle.putInt("passedImage", cardImages1.get(position));
                 frag.setArguments(bundle);
 
                 try {

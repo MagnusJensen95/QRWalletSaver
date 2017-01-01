@@ -64,6 +64,7 @@ public class MyCardsFrag extends MasterFrag {
     private ArrayList<String> currentName;
     private ArrayList<Integer> currentImage;
     private Spinner editOptionsSpinner;
+    private int imageResource;
 
 
     public MyCardsFrag () {
@@ -91,6 +92,7 @@ public class MyCardsFrag extends MasterFrag {
 
             name = bundle.getString("passedCardName");
             code = bundle.getString("passedCode");
+            imageResource = bundle.getInt("passedImage");
 
         }
         else {
@@ -102,7 +104,7 @@ public class MyCardsFrag extends MasterFrag {
         currentName = new ArrayList<String>();
         currentName.add(name);
         currentImage = new ArrayList<Integer>();
-        currentImage.add(R.drawable.ic_menu_camera);
+        currentImage.add(imageResource);
 
         editOptionsSpinner = (Spinner)view.findViewById(R.id.editSpinner);
         editOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

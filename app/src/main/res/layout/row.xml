@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:adjustViewBounds="true"
 
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:layout_marginLeft="3dp"
 
         />

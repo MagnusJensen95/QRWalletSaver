@@ -51,21 +51,5 @@
     </string-array>
 
 
-    <integer-array name="logo_images">
-        <item>@drawable/br</item>
-        <item>@drawable/cbs</item>
-        <item>@drawable/coop</item>
-        <item>@drawable/dtu</item>
-        <item>@drawable/forbrugsforeningen</item>
-        <item>@drawable/hm</item>
-        <item>@drawable/ikea</item>
-        <item>@drawable/imerco</item>
-        <item>@drawable/jensens</item>
-        <item>@drawable/ku</item>
-        <item>@drawable/lo</item>
-        <item>@drawable/magasin</item>
-        <item>@drawable/matas</item>
-        <item>@drawable/meny</item>
-        <item>@drawable/sportmaster</item>
-    </integer-array>
+
 </resources>
