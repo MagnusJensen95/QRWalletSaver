@@ -1,8 +1,10 @@
 package qrapp.fragments;
 
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,8 +17,10 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.google.zxing.BarcodeFormat;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import qrapp.qrapp.data.CardData;
+import qrapp.qrapp.data.CustomListAdapter;
 import qrapp.qrapp.data.DBHelper;
 
 import qrapp.activities.R;
@@ -54,6 +59,11 @@ public class MyCardsFrag extends MasterFrag {
     private Bundle bundle;
     private String name;
     private String code;
+    private ListView selectionView;
+    private CustomListAdapter customAdapter;
+    private ArrayList<String> currentName;
+    private ArrayList<Integer> currentImage;
+    private Spinner editOptionsSpinner;
 
 
     public MyCardsFrag () {
@@ -73,6 +83,8 @@ public class MyCardsFrag extends MasterFrag {
         qrImage = (ImageView) view.findViewById(R.id.QRImage);
         barcodeImage = (ImageView) view.findViewById(R.id.barcodeImage);
         numberText = (TextView)view.findViewById(R.id.numberText);
+        selectionView = (ListView)view.findViewById(R.id.currrentSelectionList);
+
 
         bundle = this.getArguments();
         if (bundle != null){
@@ -87,10 +99,59 @@ public class MyCardsFrag extends MasterFrag {
 
         }
 
+        currentName = new ArrayList<String>();
+        currentName.add(name);
+        currentImage = new ArrayList<Integer>();
+        currentImage.add(R.drawable.ic_menu_camera);
+
+        editOptionsSpinner = (Spinner)view.findViewById(R.id.editSpinner);
+        editOptionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final String itemToDelete = currentName.get(0).toString();
+                if(editOptionsSpinner.getItemAtPosition(position).toString().equals("Slet Kort")){
+
+                    AlertDialog dialog =  new AlertDialog.Builder(MyCardsFrag.this.getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Slet Kort")
+                            .setMessage("Er du sikker på at du vil fjerne " + itemToDelete + " fra dit medlemskartotek?")
+                            .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    helper.removeItem(itemToDelete);
+                                    Toast.makeText(getActivity().getApplicationContext(), itemToDelete + " er nu fjernet fra dit medlemskartotek", Toast.LENGTH_SHORT).show();
+
+                                    try {
+                                        getFragmentManager().beginTransaction().replace(R.id.container_main, new CardListFrag()).commit();
+                                    } catch (Throwable throwable) {
+                                        throwable.printStackTrace();
+                                    }
+                                }
+
+                            })
+                            .setNegativeButton("Nej", null)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        adapter = new CustomListAdapter(this.getActivity(),
+                currentName, currentImage);
+
+        selectionView.setAdapter(adapter);
+
         setImages();
 
 
-        /* This is the previous version
+        /*
+        //This is the previous version
         cards = helper.getData();
 
         if(!firstSelection) {
@@ -108,8 +169,8 @@ public class MyCardsFrag extends MasterFrag {
                 R.layout.spinner, cardNames);
         cardSpinner = (Spinner) view.findViewById(R.id.cardsSpinner);
         cardSpinner.setAdapter(adapter);
-        */
 
+        */
 
 
 

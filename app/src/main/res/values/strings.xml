@@ -13,22 +13,59 @@
 
     <string-array name="options_addCard">
 
+        <item>Indtast oplysninger manuelt</item>
         <item>Scan QR-Kode</item>
         <item>Scan Stregkode</item>
-        <item>Indtast oplysninger manuelt</item>
+
 
     </string-array>
 
 
     <string-array name="memberships">
 
-        <item>Matas</item>
+        <item>BR</item>
         <item>CBS</item>
+        <item>COOP</item>
         <item>DTU</item>
-        <item>Coop</item>
-        <item>KU</item>
-        <item>Meny</item>
+        <item>Forbrugsforeningen</item>
+        <item>H&amp;M</item>
         <item>Ikea</item>
+        <item>Imerco</item>
+        <item>Jensens Bøfhus</item>
+        <item>KU</item>
+        <item>LO</item>
+        <item>Magasin</item>
+        <item>Matas</item>
+        <item>Meny</item>
+        <item>Sportsmaster</item>
 
     </string-array>
+
+    <string-array name="editCardOptions">
+
+        <item>Rediger Kort</item>
+        <item>Tilføj Billed-ID</item>
+        <item>Slet Kort</item>
+
+
+    </string-array>
+
+
+    <integer-array name="logo_images">
+        <item>@drawable/br</item>
+        <item>@drawable/cbs</item>
+        <item>@drawable/coop</item>
+        <item>@drawable/dtu</item>
+        <item>@drawable/forbrugsforeningen</item>
+        <item>@drawable/hm</item>
+        <item>@drawable/ikea</item>
+        <item>@drawable/imerco</item>
+        <item>@drawable/jensens</item>
+        <item>@drawable/ku</item>
+        <item>@drawable/lo</item>
+        <item>@drawable/magasin</item>
+        <item>@drawable/matas</item>
+        <item>@drawable/meny</item>
+        <item>@drawable/sportmaster</item>
+    </integer-array>
 </resources>

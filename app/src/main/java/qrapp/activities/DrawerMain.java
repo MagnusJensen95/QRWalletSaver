@@ -115,7 +115,7 @@ public class DrawerMain extends AppCompatActivity
         } else if (id == R.id.drawer_add_cards) {
 
 
-            transaction.replace(R.id.container_main, new AddCardFrag()).commit();
+            transaction.replace(R.id.container_main, new AddCardFrag()).addToBackStack("CardList").commit();
 
         } else if (id == R.id.drawer_about) {
 
@@ -147,7 +147,7 @@ public class DrawerMain extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if(result != null){
+        if(result != null && data != null){
             FragmentManager manager = getFragmentManager();
             MasterFrag frag = (MasterFrag) manager.findFragmentById(R.id.container_main);
             frag.addEntry(result.getContents());

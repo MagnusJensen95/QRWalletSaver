@@ -217,6 +217,12 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
                   Toast.LENGTH_SHORT).show();
       }
 
+      try {
+          getFragmentManager().beginTransaction().replace(R.id.container_main, new CardListFrag()).commit();
+      } catch (Throwable throwable) {
+          throwable.printStackTrace();
+      }
+
 
   }
 
@@ -232,6 +238,7 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
                 type = false;
                 enterText.setVisibility(View.INVISIBLE);
                 enterEdit.setVisibility(View.INVISIBLE);
+                onClick(addButton);
 
                 break;
             case "Scan Stregkode":
@@ -240,6 +247,7 @@ public class AddCardFrag extends MasterFrag implements AdapterView.OnItemSelecte
                 type = false;
                 enterText.setVisibility(View.INVISIBLE);
                 enterEdit.setVisibility(View.INVISIBLE);
+                onClick(addButton);
 
                 break;
             case "Indtast oplysninger manuelt":

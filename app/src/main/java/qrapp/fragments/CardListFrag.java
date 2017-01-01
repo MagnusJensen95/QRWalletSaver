@@ -34,7 +34,7 @@ public class CardListFrag extends Fragment {
     private ListView list;
     List<CardData> cardList;
     String[] cardNames;
-    Integer[] cardIconAddress;
+    int[] cardIconAddress;
     ArrayList<String> cardNames1;
     ArrayList<Integer> cardImages1;
 
@@ -55,16 +55,29 @@ public class CardListFrag extends Fragment {
         list = (ListView) getActivity().findViewById(R.id.list);
         helper = new DBHelper(this.getActivity().getApplicationContext());
         cardList = helper.getData();
-        cardNames = new String[]{"jensen", "nusnus"};
+        cardNames = getActivity().getResources().getStringArray(R.array.memberships);
         cardNames1 = new ArrayList<String>();
         cardImages1 = new ArrayList<Integer>();
+        cardIconAddress = getActivity().getResources().getIntArray(R.array.logo_images);
 
         for (int i = 0; i < cardList.size(); i++) {
 
-            cardNames1.add(cardList.get(i).getMedlemskab());
-            cardImages1.add(R.drawable.ic_menu_camera);
+            int imgPos;
+            String nameInArray = (cardList.get(i).getMedlemskab());
+            cardNames1.add(nameInArray);
+            for(int j = 0; j < cardNames.length; j++){
+
+                if (nameInArray.equals(cardNames[j])){
+
+                    imgPos = j;
+                    cardImages1.add(cardIconAddress[imgPos]);
+                }
+
+            }
+
 
         }
+        cardImages1.add(R.drawable.br);
 
 
         adapter = new CustomListAdapter(this.getActivity(),

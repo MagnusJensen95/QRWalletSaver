@@ -38,8 +38,11 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         txtTitle.setText(cardNames1.get(position));
-        imageView.setImageResource(cardImages1.get(position));
-        extratxt.setText("Description ");
+        if (cardImages1.get(position) != 0 ) {
+            imageView.setImageResource(cardImages1.get(position)-1);
+        }
+
+        extratxt.setText("");
         return rowView;
 
     }

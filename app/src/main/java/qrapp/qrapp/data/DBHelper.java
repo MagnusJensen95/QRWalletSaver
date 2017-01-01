@@ -51,6 +51,7 @@ public class DBHelper extends SQLiteOpenHelper  {
     }
 
     public ArrayList<CardData> getData(){
+
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {
 
@@ -65,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper  {
                 null,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                null// The sort order
+                COLUMN_NAME_TITLE + " ASC"                              // The sort order
         );
 
         ArrayList<CardData> cards = new ArrayList<>();
@@ -98,6 +99,13 @@ public class DBHelper extends SQLiteOpenHelper  {
             }
         db.close();
         return  success;
+
+    }
+
+    public void removeItem(String name){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME,  COLUMN_NAME_TITLE + " = '"+ name + "'", null);
 
     }
 

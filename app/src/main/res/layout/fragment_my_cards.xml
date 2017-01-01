@@ -5,18 +5,27 @@
     android:layout_height="match_parent"
     tools:context="qrapp.fragments.MyCardsFrag">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/currrentSelectionList">
+
+
+    </ListView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:layout_marginTop="100dp"
+        android:entries="@array/memberships"
         >
-
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/QRImage"
             android:layout_centerHorizontal="true"
+
 
             />
 
@@ -26,6 +35,7 @@
             android:id="@+id/barcodeImage"
             android:layout_below="@+id/QRImage"
             android:layout_centerHorizontal="true"
+
 
             />
 
@@ -38,6 +48,19 @@
             android:id="@+id/numberText"
             android:layout_below="@+id/barcodeImage"
             />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editSpinner"
+            android:entries="@array/editCardOptions"
+            android:layout_below="@id/numberText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp">
+
+
+
+        </Spinner>
     </RelativeLayout>
 
 
